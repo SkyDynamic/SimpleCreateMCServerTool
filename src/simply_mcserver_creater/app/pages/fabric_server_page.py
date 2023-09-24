@@ -197,6 +197,11 @@ class FabricPage(ScrollArea):
                 self.tableFrame.table.setItem(i, 0, QTableWidgetItem(data.get("version")))
                 self.tableFrame.table.setItem(i, 1, QTableWidgetItem("Release" if data.get("stable") else "Snapshot"))
                 i += 1
+        self.load_loader_version_and_installer_version()
+        self.loader_comboBox.comboBox.clear()
+        self.installer_comboBox.comboBox.clear()
+        self.loader_comboBox.comboBox.addItems(self.loader_list)
+        self.installer_comboBox.comboBox.addItems(self.installer_list)
 
 
 class TableFrame(QFrame):

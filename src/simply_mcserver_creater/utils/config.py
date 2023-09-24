@@ -10,7 +10,6 @@ class Config(QObject):
     theme_color: str
     language: str
     log_level: str
-    use_proxy: bool
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -19,7 +18,6 @@ class Config(QObject):
         self.theme_color = kwargs.get('theme_color', '#009FAA')
         self.language = kwargs.get('language', 'en-US')
         self.log_level = kwargs.get('log_level', 'INFO')
-        self.use_proxy = kwargs.get('use_proxy', False)
 
     @classmethod
     def load(cls):
@@ -39,8 +37,7 @@ class Config(QObject):
             'dark_mode': self.dark_mode,
             'theme_color': self.theme_color,
             'language': self.language,
-            'log_level': self.log_level,
-            'use_proxy': self.use_proxy,
+            'log_level': self.log_level
         }
 
     def save(self):
