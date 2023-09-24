@@ -2,7 +2,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QSettings, QVariant, QSize, QPoint
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QHBoxLayout, QStackedWidget
-from qfluentwidgets import NavigationInterface, qrouter, FluentIcon, NavigationItemPosition
+from qfluentwidgets import NavigationInterface, qrouter, FluentIcon
 from qframelesswindow import FramelessWindow, StandardTitleBar
 
 from .pages.fabric_server_page import FabricPage

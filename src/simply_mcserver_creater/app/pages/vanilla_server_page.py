@@ -2,9 +2,9 @@ import logging
 
 import requests
 
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QSize
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView, QAbstractItemView, QFrame, QTableWidgetItem
-from qfluentwidgets import ScrollArea, PushButton, FluentIcon, setTheme, setThemeColor, Theme, TableWidget, StateToolTip
+from qfluentwidgets import ScrollArea, PushButton, FluentIcon, setTheme, setThemeColor, Theme, TableWidget, StateToolTip, SwitchSettingCard
 
 from ..components.server_details_card import ServerDetailsWindows
 from ...utils.style_sheet import StyleSheet
@@ -69,12 +69,16 @@ class VanillaPage(ScrollArea):
         self.update_button.clicked.connect(self.__on_update_button_clicked)
         self.download_button = PushButton(self.tr("Download"), self, CustomFluentIcon.BOOK_OPEN)
         self.download_button.clicked.connect(self.__on_download_button_clicked)
-        self.download_window = ServerDetailsWindows()
+        self.download_window = ServerDetailsWindows(self)
+        self.snapshot_switch = SwitchSettingCard(FluentIcon.CAMERA, "Show Snapshot", "")
+        self.snapshot_switch.setFixedSize(QSize(250, 36))
+        self.snapshot_switch.checkedChanged.connect(self.__on_snapshot_switch)
 
         self.buttonLayout = QHBoxLayout()
         self.buttonLayout.setContentsMargins(8, 8, 8, 8)
         self.buttonLayout.addWidget(self.update_button)
         self.buttonLayout.addWidget(self.download_button)
+        self.buttonLayout.addWidget(self.snapshot_switch)
 
         self.vBoxLayout.addLayout(self.buttonLayout)
 
@@ -83,12 +87,18 @@ class VanillaPage(ScrollArea):
         self.tableFrame = TableFrame(self)
         self.vBoxLayout.addWidget(self.tableFrame)
 
+        self.snapshot_switch.switchButton.setChecked(config.show_snapshot)
         self.fill_table()
 
         StyleSheet.DOWNLOAD_SERVER_PAGE.apply(self)
 
         setTheme(Theme.DARK if config.dark_mode else Theme.LIGHT)
         setThemeColor(config.theme_color)
+
+    def __on_snapshot_switch(self):
+        config.show_snapshot = self.snapshot_switch.isChecked()
+        config.save()
+        self.fill_table()
 
     def __on_update_button_clicked(self):
         self.update_button.setEnabled(False)
@@ -102,9 +112,9 @@ class VanillaPage(ScrollArea):
         if self.tableFrame.table.currentRow() == -1:
             return
         data = server_data[self.tableFrame.table.currentRow()]
-        self.details_window.setWindowTitle(f"Server Version: {data.get('id')}")
-        self.details_window.push_data(data)
-        self.details_window.show()
+        self.download_window.setWindowTitle(f"Server Version: {data.get('id')}")
+        self.download_window.push_data(data)
+        self.download_window.show()
 
     def __update_data_stateTooltip_signalReceive(self, title, content, status):
         if status:
@@ -122,13 +132,16 @@ class VanillaPage(ScrollArea):
     def fill_table(self):
         global server_data
         manager = VanillaServerManager()
-        server_data = manager.load_from_file("All")
+        snapshot = self.snapshot_switch.isChecked()
+        if snapshot:
+            server_data = manager.load_from_file("All")
+        else:
+            server_data = manager.load_from_file("Release")
         if server_data:
             self.tableFrame.table.setRowCount(len(server_data))
             for i, data in enumerate(server_data):
                 self.tableFrame.table.setItem(i, 0, QTableWidgetItem(data.get("id")))
                 self.tableFrame.table.setItem(i, 1, QTableWidgetItem(data.get("type").title()))
-                # self.tableFrame.table.setItem(i, 2, QTableWidgetItem(data.get("time")).setTextAlignment(Qt.AlignCenter))
                 i += 1
 
 

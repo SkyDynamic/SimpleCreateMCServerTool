@@ -1,22 +1,20 @@
 import json
 import os
 
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import QObject
 
 
 class Config(QObject):
-    # server_type: str
+    show_snapshot: bool
     dark_mode: bool
     theme_color: str
     language: str
     log_level: str
     use_proxy: bool
 
-    showDepartureChanged = pyqtSignal(bool)
-
     def __init__(self, **kwargs):
         super().__init__()
-        # self.server_type = kwargs.get('server_type', 'Release')
+        self.show_snapshot = kwargs.get('show_snapshot', False)
         self.dark_mode = kwargs.get('dark_mode', False)
         self.theme_color = kwargs.get('theme_color', '#009FAA')
         self.language = kwargs.get('language', 'en-US')
@@ -37,7 +35,7 @@ class Config(QObject):
     @property
     def dict(self):
         return {
-            # 'server_type': self.server_type,
+            'show_snapshot': self.show_snapshot,
             'dark_mode': self.dark_mode,
             'theme_color': self.theme_color,
             'language': self.language,
