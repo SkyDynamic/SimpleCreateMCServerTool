@@ -86,7 +86,7 @@ class MainWindow(FramelessWindow):
     def initWindow(self):
         self.readSettings()
         self.setWindowIcon(QIcon('resources/icon.ico'))
-        self.setWindowTitle(self.tr("Simply MC Server Creater v%s") % VERSION)
+        self.setWindowTitle(self.tr("Simple MC Server Creater v%s") % VERSION)
         self.titleBar.setAttribute(Qt.WA_StyledBackground)
 
         StyleSheet.MAIN_WINDOW.apply(self)
@@ -104,13 +104,13 @@ class MainWindow(FramelessWindow):
         self.saveSettings()
 
     def readSettings(self):
-        settings = QSettings("SkyDynamic", "SimplyMCServerCreater")
+        settings = QSettings("SkyDynamic", "SimpleMCServerCreater")
         size = settings.value("size", QVariant(QSize(900, 700)))
         pos = settings.value("pos", QVariant(QPoint(200, 200)))
         self.resize(size)
         self.move(pos)
 
     def saveSettings(self):
-        settings = QSettings("SkyDynamic", "SimplyMCServerCreater")
+        settings = QSettings("SkyDynamic", "SimpleMCServerCreater")
         settings.setValue("size", QVariant(self.size()))
         settings.setValue("pos", QVariant(self.pos()))

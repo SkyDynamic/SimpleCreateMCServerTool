@@ -68,7 +68,7 @@ class SettingsPage(ScrollArea):
         )
         self.aboutGroup = SettingCardGroup(self.tr("About"), self.scrollWidget)
         self.githubCard = HyperlinkCard(
-            "https://github.com/SkyDynamic/SimplyMCServerCreater",
+            "https://github.com/SkyDynamic/SimpleMCServerCreater",
             self.tr("GitHub Repository"),
             FluentIcon.GITHUB,
             self.tr("Open the Project GitHub Repository"),
