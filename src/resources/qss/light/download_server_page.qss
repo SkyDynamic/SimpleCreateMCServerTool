@@ -1,0 +1,12 @@
+FabricPage, VanillaPage, #scrollWidget {
+    background-color: transparent;
+}
+
+QScrollArea {
+    border: none;
+    background-color: transparent;
+}
+
+QLabel {
+    color: white;
+}
