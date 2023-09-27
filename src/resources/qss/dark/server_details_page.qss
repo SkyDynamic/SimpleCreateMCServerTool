@@ -1,13 +1,19 @@
-ServerDetailsWindows, #scrollWidget {
+ServerDetailsWindows {
     background-color: transparent;
 }
 
-QScrollArea {
-    border: none;
-    background-color: transparent;
+#progressBar {
+    min-height: 12px;
+    max-height: 12px;
+    border-radius: 6px;
+    background-color: darkgrey;
+}
+#progressBar::chunk {
+    border-radius: 6px;
+    background-color: lightblue;
 }
 
-#buttonGroup {
+#buttonGroup, #textGroup, #progressBarGroup {
     background-color: rgb(32, 32, 32);
     border-top: 1px solid rgb(29, 29, 29);
     border-left: none;
@@ -45,4 +51,10 @@ QScrollArea {
     color: rgba(255, 255, 255, 0.63);
     background: rgb(59, 59, 59);
     border: 1px solid rgb(80, 80, 80);
+}
+
+QLabel#ServerVersionText, QLabel#ServerReleaseTimeText, QLabel#ServerTypeText {
+    font: 16px 'Microsoft YaHei Light';
+    background-color: transparent;
+    color: white;
 }
