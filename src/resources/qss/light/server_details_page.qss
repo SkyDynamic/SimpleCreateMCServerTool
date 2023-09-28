@@ -6,6 +6,16 @@
     border-bottom: none;
 }
 
+#progressBar {
+    min-height: 12px;
+    max-height: 12px;
+    border-radius: 6px;
+}
+#progressBar::chunk {
+    border-radius: 6px;
+    background-color: lightblue;
+}
+
 #centerWidget {
     border: 1px solid rgb(144, 144, 142);
     border-radius: 10px;
@@ -36,4 +46,10 @@
     color: rgba(0, 0, 0, 0.63);
     background: rgb(252, 252, 252);
     border: 1px solid rgb(223, 223, 223);
+}
+
+QLabel#ServerVersionText, QLabel#ServerReleaseTimeText, QLabel#ServerTypeText {
+    font: 16px 'Microsoft YaHei Light';
+    background-color: transparent;
+    color: black;
 }

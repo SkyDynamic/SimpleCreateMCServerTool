@@ -62,7 +62,7 @@ default_config = {
     "max-world-size": 29999984
 }
 
-class FabricPage(ScrollArea):
+class GameConfigPage(ScrollArea):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("server_config_page")

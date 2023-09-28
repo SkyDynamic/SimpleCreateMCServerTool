@@ -35,6 +35,7 @@ class DownloadCoreThread(QThread):
                 server_core_url = info.json().get("downloads").get("server").get("url")
             else:
                 server_core_url = self.server_core_url
+                # 由于无法获取到正确的jar大小, 通过各个版本对比, 写成约152kb
                 self.file_size = 155095
 
             core = requests.get(server_core_url, stream=True)
