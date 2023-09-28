@@ -9,4 +9,7 @@
 
 /src/*.json
 /src/logs
+/src/simple_create_mcserver_tool/simple_create_mcserver_tool.pro
 /src/serverData
+/build/
+/.idea/
