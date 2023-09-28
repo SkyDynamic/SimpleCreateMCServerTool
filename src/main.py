@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTranslator
 from PyQt5.QtWidgets import QApplication
 
 from simple_create_mcserver_tool.utils.logger import ColoredLogger, patch_getLogger
@@ -19,6 +19,10 @@ def main():
 
     app = QApplication(sys.argv)
     app.font().families().append("Microsoft YaHei UI")
+    
+    trans = QTranslator()
+    trans.load("source", f"./resources/i18n/{config.language}")
+    app.installTranslator(trans)
 
     main_app = MainWindow()
     main_app.show()

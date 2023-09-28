@@ -3,7 +3,7 @@ import logging
 import requests
 from PyQt5.QtCore import Qt, pyqtSignal, QThread
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QFileDialog, QLabel, QWidget, QProgressBar, QMessageBox
+from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QFileDialog, QLabel, QWidget, QProgressBar
 from qfluentwidgets import VBoxLayout, PushButton, setTheme, setThemeColor, Theme
 
 from ...utils.config import config

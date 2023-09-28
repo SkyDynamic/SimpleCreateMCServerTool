@@ -2,7 +2,7 @@ import logging
 
 import requests
 
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QSize
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QSize, QTranslator
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView, QAbstractItemView, QFrame, QTableWidgetItem
 from qfluentwidgets import ScrollArea, PushButton, FluentIcon, setTheme, setThemeColor, Theme, TableWidget, StateToolTip, SwitchSettingCard
 
@@ -118,7 +118,7 @@ class FabricPage(ScrollArea):
         self.download_button = PushButton(self.tr("Download"), self, CustomFluentIcon.BOOK_OPEN)
         self.download_button.clicked.connect(self.__on_download_button_clicked)
         self.download_window = ServerDetailsWindows(self)
-        self.snapshot_switch = SwitchSettingCard(FluentIcon.CAMERA, "Show Snapshot", "")
+        self.snapshot_switch = SwitchSettingCard(FluentIcon.CAMERA, self.tr("Show Snapshot"), "")
         self.snapshot_switch.setFixedSize(QSize(250, 36))
         self.snapshot_switch.checkedChanged.connect(self.__on_snapshot_switch)
 
@@ -167,8 +167,8 @@ class FabricPage(ScrollArea):
             "type": "Release" if data.get("stable") else "Snapshot"
         }
         self.download_window.setWindowTitle(f"Server Version: {data.get('id')}")
-        self.download_window.server_version_text.setText((self.tr("Server Version: %s" % data.get("id"))))
-        self.download_window.server_type_text.setText(self.tr("Server Type: %s" % data.get("type").title()))
+        self.download_window.server_version_text.setText((self.tr("Server Version: ") + data.get("id")))
+        self.download_window.server_type_text.setText(self.tr("Server Type: ") + data.get("type").title())
         self.download_window.push_data(data)
         self.download_window.show()
 

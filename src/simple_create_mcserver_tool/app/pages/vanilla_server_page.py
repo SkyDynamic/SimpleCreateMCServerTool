@@ -79,7 +79,7 @@ class VanillaPage(ScrollArea):
         self.download_button = PushButton(self.tr("Download"), self, CustomFluentIcon.BOOK_OPEN)
         self.download_button.clicked.connect(self.__on_download_button_clicked)
         self.download_window = ServerDetailsWindows(self)
-        self.snapshot_switch = SwitchSettingCard(FluentIcon.CAMERA, "Show Snapshot", "")
+        self.snapshot_switch = SwitchSettingCard(FluentIcon.CAMERA, self.tr("Show Snapshot"), "")
         self.snapshot_switch.setFixedSize(QSize(250, 36))
         self.snapshot_switch.checkedChanged.connect(self.__on_snapshot_switch)
 
@@ -123,10 +123,10 @@ class VanillaPage(ScrollArea):
         data = server_data[self.tableFrame.table.currentRow()]
         self.download_window.push_data(data)
         self.download_window.setWindowTitle("Server Version: %s" % data.get("id"))
-        self.download_window.server_version_text.setText((self.tr("Server Version: %s" % data.get("id"))))
-        self.download_window.server_type_text.setText(self.tr("Server Type: %s" % data.get("type").title()))
+        self.download_window.server_version_text.setText((self.tr("Server Version: ") + data.get("id")))
+        self.download_window.server_type_text.setText(self.tr("Server Type: ") + data.get("type").title())
         release_time_uxin = format_time(data.get('releaseTime'))
-        self.download_window.server_release_time_text.setText(self.tr(f"Server Release Time: %s" % time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(release_time_uxin))))
+        self.download_window.server_release_time_text.setText(self.tr(f"Server Release Time: ") + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(release_time_uxin)))
         self.download_window.show()
 
     def __update_data_stateTooltip_signalReceive(self, title, content, status):
