@@ -41,12 +41,12 @@ jobs:
           pip install nuitka
 
       - name: Build
-        run: nuitka --windows-disable-console --assume-yes-for-downloads --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\icon.ico --output-dir=build --output-filename="Simple Create MC Server Tool" --onefile .\src\main.py
+        run: nuitka --windows-disable-console --assume-yes-for-downloads --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\icon.ico --output-dir=build --output-filename="SimpleCreateMCServerTool" --onefile .\src\main.py
 
       - name: Copy resources
         run: |
           powershell mkdir .\build\build -Force
-          powershell cp -Force ".\build\Simple Create MC Server Tool.exe" .\build\build -recurse
+          powershell cp -Force ".\build\SimpleCreateMCServerTool.exe" .\build\build -recurse
           powershell cp -Force .\src\resources\ .\build\build -recurse
 
       - name: Upload Artifact
