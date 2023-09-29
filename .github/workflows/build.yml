@@ -1,0 +1,56 @@
+name: CI for Simple Create MC Server Tool
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/**'
+  workflow_call:
+
+env:
+  NUITKA_CACHE_DIR: ${{ github.workspace }}\nuitka_cache
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: cache
+        uses: actions/cache@v3.2.6
+        with:
+          path: ${{ env.NUITKA_CACHE_DIR }}
+          key: ${{ runner.os }}-nuitka-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-nuitka-
+
+      - name: Setup VS Dev Environment
+        uses: seanmiddleditch/gha-setup-vsdevenv@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4.6.0
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install nuitka
+        run: |
+          pip install nuitka
+
+      - name: Build
+        run: nuitka --windows-disable-console --assume-yes-for-downloads --enable-plugin=pyqt5 --standalone --windows-icon-from-ico=.\src\resources\icon.ico --output-dir=build --output-filename="Simple Create MC Server Tool" --onefile .\src\main.py
+
+      - name: Copy resources
+        run: |
+          powershell mkdir .\build\build -Force
+          powershell cp -Force ".\build\Simple Create MC Server Tool.exe" .\build\build -recurse
+          powershell cp -Force .\src\resources\ .\build\build -recurse
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Simple Create MC Server Tool
+          path: .\build\build

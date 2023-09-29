@@ -1,0 +1,5 @@
+PyQt5==5.15.9
+requests==2.31.0
+colorlog==6.7.0
+PyQt-Fluent-Widgets==1.2.0
+PyQtChart==5.15.6
